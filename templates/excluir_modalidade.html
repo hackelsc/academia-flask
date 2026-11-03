@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Excluir modalidade</h1>
+
+<p>Tem certeza que deseja excluir a modalidade "{{ nome }}"? Esta ação não pode ser desfeita.</p>
+
+<form action="/modalidades/{{ id }}/excluir" method="POST">
+    <button type="submit">Sim, excluir</button>
+    <a href="/modalidades">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Excluir usuário</h1>
+
+<p>Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.</p>
+
+<p>
+    Nome: {{ nome }}<br>
+    Login: {{ login }}
+</p>
+
+<form action="/usuarios/{{ id }}/excluir" method="POST">
+    <button type="submit">Sim, excluir</button>
+    <a href="/usuarios">Cancelar</a>
+</form>
+{% endblock %}

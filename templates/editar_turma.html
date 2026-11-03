@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Editar turma</h1>
+
+{% if erro %}
+<p class="erro">{{ erro }}</p>
+{% endif %}
+
+<form action="/turmas/{{ id }}/editar" method="POST">
+
+    <div class="linha">
+        <div class="campo">
+            <label>Modalidade:</label>
+            <select name="modalidade_id" required>
+                <option value="">Selecione...</option>
+                {% for m in modalidades %}
+                <option value="{{ m[0] }}" {% if m[0]|string == modalidade_id %}selected{% endif %}>{{ m[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="campo">
+            <label>Professor:</label>
+            <select name="funcionario_id">
+                <option value="">Sem professor fixo</option>
+                {% for p in professores %}
+                <option value="{{ p[0] }}" {% if p[0]|string == funcionario_id %}selected{% endif %}>{{ p[1] }} ({{ p[5] }})</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="linha">
+        <div class="campo">
+            <label>Dias da semana:</label>
+            <div class="dias">
+                {% for d in dias_semana %}
+                <label class="dia">
+                    <input type="checkbox" name="dia_semana" value="{{ d }}" {% if d in (dia_semana or "") %}checked{% endif %}>
+                    {{ d }}
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="campo">
+            <label>Horário de início:</label>
+            <input type="time" name="horario_inicio" value="{{ horario_inicio }}" required>
+        </div>
+        <div class="campo">
+            <label>Horário de fim:</label>
+            <input type="time" name="horario_fim" value="{{ horario_fim }}" required>
+        </div>
+    </div>
+
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="/turmas">Voltar</a>
+{% endblock %}

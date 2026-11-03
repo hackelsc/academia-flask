@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Usuários</h1>
+
+<table border="1">
+    <tr>
+        <th>Nome</th>
+        <th>Login</th>
+        <th>Perfil</th>
+        <th>Ações</th>
+    </tr>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario[1] }}</td>
+        <td>{{ usuario[2] }}</td>
+        <td>{{ usuario[3] }}</td>
+        <td>
+            <a href="/usuarios/{{ usuario[0] }}/editar">Editar</a>
+            <a href="/usuarios/{{ usuario[0] }}/excluir">Excluir</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Novo usuário</h2>
+
+{% if erro %}
+<p class="erro">{{ erro }}</p>
+{% endif %}
+
+<form action="/usuarios" method="POST">
+
+    <label>Nome:</label>
+    <input type="text" name="nome" required>
+
+    <label>Login:</label>
+    <input type="text" name="login" required>
+
+    <label>Senha:</label>
+    <input type="password" name="senha" required>
+
+    <label>Perfil:</label>
+    <select name="perfil">
+        <option value="recepcao">Recepção</option>
+        <option value="admin">Administrador</option>
+    </select>
+
+    <button type="submit">Cadastrar</button>
+</form>
+{% endblock %}

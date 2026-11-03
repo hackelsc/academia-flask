@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Academia</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            {% if session.get("usuario") %}
+                <a href="/painel">Painel</a>
+                <a href="/alunos">Alunos</a>
+                <a href="/funcionarios">Funcionários</a>
+                <a href="/turmas">Turmas</a>
+                <a href="/financeiro">Financeiro</a>
+                <a href="/sobre">Sobre</a>
+                <a href="/contatos">Contatos</a>
+                {% if session.get("perfil") == "admin" %}
+                    <a href="/usuarios">Usuários</a>
+                {% endif %}
+                <a href="/senha">Minha senha</a>
+                <a href="/logout">Sair</a>
+            {% else %}
+                <a href="/login">Entrar</a>
+                <a href="/sobre">Sobre</a>
+                <a href="/contatos">Contatos</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% with mensagens = get_flashed_messages() %}
+            {% if mensagens %}
+                <ul class="flash">
+                    {% for mensagem in mensagens %}
+                        <li>{{ mensagem }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        {% block conteudo %}
+        {% endblock %}
+    </main>
+</body>
+</html>

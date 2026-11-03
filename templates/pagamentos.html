@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Histórico de pagamentos ({{ total }})</h1>
+
+<a href="/financeiro">Voltar ao financeiro</a>
+
+<form action="/financeiro/historico" method="GET">
+    <input type="text" name="busca" value="{{ busca }}" placeholder="Buscar por nome, matrícula, CPF, telefone...">
+    <button type="submit">Buscar</button>
+    {% if busca %}
+    <a href="/financeiro/historico">Limpar filtros</a>
+    {% endif %}
+</form>
+
+{% if pagamentos %}
+<table>
+    <tr>
+        <th>Aluno</th>
+        <th>Mês de referência</th>
+        <th>Valor</th>
+        <th>Data do pagamento</th>
+        <th>Forma</th>
+        <th>Status</th>
+    </tr>
+    {% for pagamento in pagamentos %}
+    <tr>
+        <td>{{ pagamento[1] }}</td>
+        <td>{{ pagamento[2] }}</td>
+        <td>R$ {{ "%.2f"|format(pagamento[3]) }}</td>
+        <td>{{ pagamento[4] }}</td>
+        <td>{{ pagamento[5] }}</td>
+        <td><span class="etiqueta {{ pagamento[6]|lower }}">{{ pagamento[6] }}</span></td>
+    </tr>
+    {% endfor %}
+</table>
+{% elif busca %}
+<p>Nenhum pagamento encontrado para essa busca.</p>
+{% else %}
+<p>Nenhum pagamento registrado.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,573 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #1f2937;
+    background-color: #eef1f5;
+    margin: 0;
+}
+
+main {
+    max-width: 1240px;
+    margin: 24px auto;
+    padding: 24px 28px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+h1 {
+    font-size: 28px;
+    color: #1e3a5f;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    color: #1e3a5f;
+}
+
+a {
+    color: #1d4ed8;
+}
+
+a:hover {
+    color: #1e3a5f;
+}
+
+main:has(.login) {
+    max-width: 380px;
+    margin-top: 60px;
+}
+
+main:has(.login) h1 {
+    font-size: 32px;
+    text-align: center;
+}
+
+.login label {
+    display: block;
+    margin-top: 14px;
+    font-weight: bold;
+}
+
+.login input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 4px;
+    padding: 8px 10px;
+    font-size: 16px;
+    border: 1px solid #b6bfcc;
+    border-radius: 4px;
+}
+
+.login button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #1e3a5f;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login button:hover {
+    background-color: #2b5287;
+}
+
+header {
+    background-color: #1e3a5f;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 1296px;
+    margin: 0 auto;
+    padding: 0 12px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 16px 16px;
+}
+
+nav a:hover {
+    color: #ffffff;
+    background-color: #2b5287;
+}
+
+nav a[href="/logout"] {
+    margin-left: auto;
+}
+
+.contatos p {
+    margin: 0;
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.contatos p:last-child {
+    border-bottom: none;
+}
+
+.contatos span {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+    color: #1e3a5f;
+}
+
+.texto {
+    max-width: 720px;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.whatsapp {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+table {
+    width: 100%;
+    min-width: 380px;
+    border: none;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.tabela {
+    width: auto;
+}
+
+table th,
+table td {
+    padding: 10px 12px;
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    vertical-align: middle;
+}
+
+table th {
+    color: #ffffff;
+    background-color: #1e3a5f;
+}
+
+table th:first-child {
+    border-top-left-radius: 6px;
+}
+
+table th:last-child {
+    border-top-right-radius: 6px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+table tr:hover td {
+    background-color: #f3f6fa;
+}
+
+table .numero {
+    text-align: right;
+    font-weight: bold;
+}
+
+.atalhos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+}
+
+.atalho {
+    display: block;
+    padding: 18px 20px;
+    color: #1f2937;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #d9dee7;
+    border-radius: 8px;
+}
+
+.atalho:hover {
+    color: #1f2937;
+    border-color: #1e3a5f;
+    box-shadow: 0 2px 8px rgba(30, 58, 95, 0.2);
+}
+
+.atalho strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 18px;
+    color: #1e3a5f;
+}
+
+.atalho span {
+    font-size: 14px;
+    color: #4b5563;
+}
+
+table + h2 {
+    margin-top: 72px;
+}
+
+h1 + h2 {
+    margin-top: 48px;
+}
+
+ul.flash {
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+}
+
+ul.flash li {
+    margin-bottom: 8px;
+    padding: 10px 14px;
+    color: #1e3a5f;
+    background-color: #e8f1fb;
+    border-left: 4px solid #1e3a5f;
+    border-radius: 4px;
+}
+
+.erro {
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    color: #a12727;
+    background-color: #fde2e2;
+    border-left: 4px solid #a12727;
+    border-radius: 4px;
+}
+
+p:has(br) {
+    padding: 14px 18px;
+    line-height: 1.9;
+    background-color: #f3f6fa;
+    border-radius: 8px;
+}
+
+input,
+select {
+    font: inherit;
+    padding: 8px 10px;
+    background-color: #ffffff;
+    border: 1px solid #b6bfcc;
+    border-radius: 4px;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid #9db8dc;
+    border-color: #1e3a5f;
+}
+
+button {
+    font: inherit;
+    font-weight: bold;
+    padding: 9px 18px;
+    color: #ffffff;
+    background-color: #1e3a5f;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2b5287;
+}
+
+main > a {
+    display: inline-block;
+    margin: 8px 8px 8px 0;
+    padding: 8px 16px;
+    font-weight: bold;
+    color: #1e3a5f;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #c9d3e0;
+    border-radius: 6px;
+}
+
+main > a:hover {
+    background-color: #eef3fa;
+}
+
+main > a[href$="/novo"] {
+    color: #ffffff;
+    background-color: #1e3a5f;
+    border-color: #1e3a5f;
+}
+
+main > a[href$="/novo"]:hover {
+    background-color: #2b5287;
+}
+
+main > form + a,
+main > table + a,
+main > p + a {
+    margin-top: 20px;
+}
+
+form[method="GET"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0 24px;
+    padding: 14px 16px;
+    background-color: #f3f6fa;
+    border-radius: 8px;
+}
+
+form[method="GET"] input[type="text"] {
+    flex: 1 1 260px;
+}
+
+form[method="GET"] label {
+    font-weight: bold;
+}
+
+form[method="GET"] a {
+    font-weight: bold;
+}
+
+main form[method="POST"] label {
+    display: block;
+    margin-top: 14px;
+    font-weight: bold;
+}
+
+main form[method="POST"] input,
+main form[method="POST"] select {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    box-sizing: border-box;
+    margin-top: 4px;
+}
+
+main form[method="POST"] button {
+    margin-top: 20px;
+    margin-right: 12px;
+}
+
+main form[method="POST"] a {
+    font-weight: bold;
+}
+
+td a,
+td form {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 2px 4px 2px 0;
+}
+
+td a {
+    padding: 4px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #1e3a5f;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #c9d3e0;
+    border-radius: 6px;
+}
+
+td a:hover {
+    background-color: #eef3fa;
+}
+
+td a[href$="/excluir"] {
+    color: #a12727;
+    border-color: #d9a3a3;
+}
+
+td a[href$="/excluir"]:hover {
+    background-color: #fde2e2;
+}
+
+td button,
+td form[method="POST"] button {
+    margin: 0;
+    padding: 5px 12px;
+    font-size: 14px;
+}
+
+form[action$="/inativar"] button {
+    background-color: #b7791f;
+}
+
+form[action$="/inativar"] button:hover {
+    background-color: #975f12;
+}
+
+form[action$="/reativar"] button {
+    background-color: #2e7d4f;
+}
+
+form[action$="/reativar"] button:hover {
+    background-color: #25663f;
+}
+
+form[action$="/desmatricular"] button {
+    color: #a12727;
+    background-color: #ffffff;
+    border: 1px solid #d9a3a3;
+}
+
+form[action$="/desmatricular"] button:hover {
+    background-color: #fde2e2;
+}
+
+form[action$="/excluir"] button {
+    background-color: #b42b2b;
+}
+
+form[action$="/excluir"] button:hover {
+    background-color: #922222;
+}
+
+.etiqueta {
+    display: inline-block;
+    padding: 2px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 12px;
+}
+
+.etiqueta.ativo,
+.etiqueta.pago {
+    color: #1b6b3a;
+    background-color: #e0f3e8;
+}
+
+.etiqueta.inativo {
+    color: #4b5563;
+    background-color: #e5e7eb;
+}
+
+.etiqueta.pendente {
+    color: #8a5a00;
+    background-color: #fff1cc;
+}
+
+.etiqueta.atrasado {
+    color: #a12727;
+    background-color: #fde2e2;
+}
+
+main form.login button {
+    margin-right: 0;
+}
+
+table {
+    font-size: 14px;
+}
+
+table th,
+table td {
+    padding: 10px 8px;
+    white-space: nowrap;
+}
+
+td a {
+    padding: 3px 9px;
+    font-size: 13px;
+}
+
+td form[method="POST"] button {
+    padding: 4px 9px;
+    font-size: 13px;
+}
+
+td form {
+    margin: 2px 2px 2px 0;
+}
+
+td a {
+    margin-right: 2px;
+}
+
+main form[method="POST"] .linha {
+    display: flex;
+    gap: 16px;
+    max-width: 900px;
+}
+
+main form[method="POST"] .campo {
+    flex: 2;
+    min-width: 0;
+}
+
+main form[method="POST"] .campo.largo {
+    flex: 4;
+}
+
+main form[method="POST"] .campo.estreito {
+    flex: 1;
+}
+
+main form[method="POST"] .campo input,
+main form[method="POST"] .campo select {
+    max-width: none;
+}
+
+@media (max-width: 700px) {
+    main form[method="POST"] .linha {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+main form[method="POST"] .campo:only-child {
+    flex: none;
+    width: 50%;
+}
+
+main form + table {
+    margin-top: 40px;
+}
+
+main form[method="POST"] .dias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+main form[method="POST"] label.dia {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0;
+    padding: 8px 12px;
+    font-weight: normal;
+    background-color: #f4f6f9;
+    border: 1px solid #c9d3e0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+main form[method="POST"] label.dia input {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+}

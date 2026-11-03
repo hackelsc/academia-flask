@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Minha senha</h1>
+
+{% if erro %}
+<p class="erro">{{ erro }}</p>
+{% endif %}
+
+<form action="/senha" method="POST">
+
+    <label>Senha atual:</label>
+    <input type="password" name="senha_atual" required>
+
+    <label>Nova senha:</label>
+    <input type="password" name="senha_nova" required>
+
+    <label>Confirmar nova senha:</label>
+    <input type="password" name="senha_confirmacao" required>
+
+    <button type="submit">Trocar senha</button>
+</form>
+{% endblock %}

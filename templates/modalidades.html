@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+    <h1>Modalidades ({{ total }})</h1>
+
+    {% if erro %}
+    <p class="erro">{{ erro }}</p>
+    {% endif %}
+
+    <form action="/modalidades" method="POST">
+        <label>Nova modalidade:</label>
+        <input type="text" name="nome" value="{{ nome }}" required>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    {% if modalidades %}
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Ações</th>
+            </tr>
+            {% for modalidade in modalidades %}
+            <tr>
+                <td>{{ modalidade[1] }}</td>
+                <td>
+                    <a href="/modalidades/{{ modalidade[0] }}/editar">Editar</a>
+                    <a href="/modalidades/{{ modalidade[0] }}/excluir">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Nenhuma modalidade cadastrada</p>
+    {% endif %}
+{% endblock %}

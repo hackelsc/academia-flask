@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Pagamentos do aluno</h1>
+
+<p>
+    Aluno: {{ nome }} (matrícula {{ numero_matricula }})<br>
+    Status: {% if status == 1 %}Ativo{% else %}Inativo{% endif %}<br>
+    Mensalidade: R$ {{ "%.2f"|format(mensalidade) }}<br>
+    Vencimento: dia {{ dia_vencimento }}
+</p>
+
+<h2>Pagamentos registrados ({{ total }})</h2>
+
+{% if pagamentos %}
+<table>
+    <tr>
+        <th>Mês de referência</th>
+        <th>Valor</th>
+        <th>Data do pagamento</th>
+        <th>Forma</th>
+        <th>Status</th>
+        <th>Ações</th>
+    </tr>
+    {% for pagamento in pagamentos %}
+    <tr>
+        <td>{{ pagamento[1] }}</td>
+        <td>R$ {{ "%.2f"|format(pagamento[2]) }}</td>
+        <td>{{ pagamento[3] }}</td>
+        <td>{{ pagamento[4] }}</td>
+        <td><span class="etiqueta {{ pagamento[5]|lower }}">{{ pagamento[5] }}</span></td>
+        <td>
+            <a href="/alunos/{{ id }}/pagamentos/{{ pagamento[0] }}/editar">Editar</a>
+            <a href="/alunos/{{ id }}/pagamentos/{{ pagamento[0] }}/excluir">Excluir</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>Este aluno ainda não tem pagamento registrado.</p>
+{% endif %}
+
+<h2>Registrar pagamento</h2>
+
+{% if erro %}
+<p class="erro">{{ erro }}</p>
+{% endif %}
+
+{% if status != 1 %}
+<p>Este aluno está inativo. Reative o aluno para registrar pagamentos.</p>
+{% else %}
+<form action="/alunos/{{ id }}/pagamentos" method="POST">
+
+    <label>Mês de referência:</label>
+    <input type="month" name="mes_referencia" value="{{ mes_referencia }}" required>
+
+    <label>Valor (R$):</label>
+    <input type="number" name="valor" step="0.01" min="0.01" value="{{ valor }}" required>
+
+    <label>Forma de pagamento:</label>
+    <select name="forma_pagamento" required>
+        <option value="">Selecione...</option>
+        {% for f in formas_pagamento %}
+        <option value="{{ f }}" {% if f == forma_pagamento %}selected{% endif %}>{{ f }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Registrar</button>
+</form>
+{% endif %}
+
+<a href="/alunos">Voltar</a>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Turmas do aluno</h1>
+
+<p>
+    Aluno: {{ nome }} (matrícula {{ numero_matricula }})<br>
+    Status: {% if status == 1 %}Ativo{% else %}Inativo{% endif %}
+</p>
+
+<h2>Turmas matriculadas ({{ total }})</h2>
+
+{% if turmas %}
+<table>
+    <tr>
+        <th>Modalidade</th>
+        <th>Professor</th>
+        <th>Dia</th>
+        <th>Início</th>
+        <th>Fim</th>
+        <th>Ações</th>
+    </tr>
+    {% for turma in turmas %}
+    <tr>
+        <td>{{ turma[2] }}</td>
+        <td>{{ turma[3] or "Sem professor fixo" }}</td>
+        <td>{{ turma[4] }}</td>
+        <td>{{ turma[5] }}</td>
+        <td>{{ turma[6] }}</td>
+        <td>
+            <form action="/alunos/{{ id }}/turmas/{{ turma[0] }}/desmatricular" method="POST">
+                <button type="submit">Desmatricular</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>Este aluno não está matriculado em nenhuma turma.</p>
+{% endif %}
+
+<h2>Matricular em uma turma</h2>
+
+{% if status != 1 %}
+<p>Este aluno está inativo. Reative o aluno para matriculá-lo em uma turma.</p>
+{% elif turmas_disponiveis %}
+<form action="/alunos/{{ id }}/turmas/matricular" method="POST">
+    <select name="turma_id" required>
+        <option value="">Selecione...</option>
+        {% for t in turmas_disponiveis %}
+        <option value="{{ t[0] }}">{{ t[1] }} - {{ t[3] }}, {{ t[4] }} às {{ t[5] }} ({{ t[2] or "sem professor fixo" }})</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Matricular</button>
+</form>
+{% else %}
+<p>Nenhuma turma ativa disponível para matricular.</p>
+{% endif %}
+
+<a href="/alunos">Voltar</a>
+{% endblock %}

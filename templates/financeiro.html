@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Financeiro: {% if todos_meses %}todos os meses{% else %}pagamentos de {{ mes_formatado }}{% endif %}</h1>
+
+<p>
+    <strong>Pago:</strong> o aluno tem pagamento registrado nesse mês.<br>
+    <strong>Pendente:</strong> o aluno ainda não pagou, mas o vencimento não passou (ou o mês ainda não chegou).<br>
+    <strong>Atrasado:</strong> o vencimento passou e não há pagamento registrado.
+</p>
+
+<p>
+    Alunos: {{ total_pago }} pagos | {{ total_pendente }} pendentes | {{ total_atrasado }} atrasados<br>
+    Valores: R$ {{ "%.2f"|format(valor_recebido) }} recebido | R$ {{ "%.2f"|format(valor_a_receber) }} a receber | R$ {{ "%.2f"|format(valor_em_atraso) }} em atraso
+</p>
+
+<a href="/financeiro/historico">Histórico de pagamentos</a>
+
+<form action="/financeiro" method="GET">
+    <label>Mês:</label>
+    <input type="month" name="mes" value="{{ mes }}" required>
+    <input type="text" name="busca" value="{{ busca }}" placeholder="Buscar por nome, matrícula, CPF, telefone...">
+    <select name="situacao">
+        <option value="" {% if situacao_filtro == "" %}selected{% endif %}>Todas as situações</option>
+        <option value="Pago" {% if situacao_filtro == "Pago" %}selected{% endif %}>Pagos</option>
+        <option value="Pendente" {% if situacao_filtro == "Pendente" %}selected{% endif %}>Pendentes</option>
+        <option value="Atrasado" {% if situacao_filtro == "Atrasado" %}selected{% endif %}>Atrasados</option>
+    </select>
+    <label><input type="checkbox" name="todos" value="1" {% if todos_meses %}checked{% endif %}> Todos os meses</label>
+    <button type="submit">Ver</button>
+    {% if busca or situacao_filtro or todos_meses %}
+    <a href="/financeiro?mes={{ mes }}">Limpar filtros</a>
+    {% endif %}
+</form>
+
+{% if situacoes %}
+{% if total_linhas > situacoes|length %}
+<p>Mostrando as {{ situacoes|length }} primeiras de {{ total_linhas }} linhas. Use a busca ou a situação para reduzir.</p>
+{% endif %}
+
+<table>
+    <tr>
+        {% if todos_meses %}<th>Mês</th>{% endif %}
+        <th>Aluno</th>
+        <th>Vencimento</th>
+        <th>Situação</th>
+        <th>Ações</th>
+    </tr>
+    {% for situacao in situacoes %}
+    <tr>
+        {% if todos_meses %}<td>{{ situacao[4][5:7] }}/{{ situacao[4][:4] }}</td>{% endif %}
+        <td>{{ situacao[1] }}</td>
+        <td>dia {{ situacao[2] }}</td>
+        <td><span class="etiqueta {{ situacao[3]|lower }}">{{ situacao[3] }}</span></td>
+        <td><a href="/alunos/{{ situacao[0] }}/pagamentos">Pagamentos</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% elif busca or situacao_filtro or todos_meses %}
+<p>Nenhum aluno encontrado com esses filtros.</p>
+{% else %}
+<p>Nenhum aluno matriculado neste mês.</p>
+{% endif %}
+{% endblock %}

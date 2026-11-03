@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Excluir turma</h1>
+
+<p>Tem certeza que deseja excluir esta turma? Esta ação não pode ser desfeita.</p>
+
+<p>
+    Modalidade: {{ modalidade }}<br>
+    Professor: {{ professor }}<br>
+    Dia: {{ dia_semana }}<br>
+    Horário: {{ horario_inicio }} às {{ horario_fim }}
+</p>
+
+<form action="/turmas/{{ id }}/excluir" method="POST">
+    <button type="submit">Sim, excluir</button>
+    <a href="/turmas">Cancelar</a>
+</form>
+{% endblock %}

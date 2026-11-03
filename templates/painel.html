@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Bem-vindo, {{ session.get("usuario") }}</h1>
+
+<h2>Resumo</h2>
+
+<table class="tabela">
+    <tr>
+        <th>Item</th>
+        <th class="numero">Quantidade</th>
+    </tr>
+    <tr>
+        <td>Alunos ativos</td>
+        <td class="numero">{{ alunos_ativos }}</td>
+    </tr>
+    <tr>
+        <td>Funcionários ativos</td>
+        <td class="numero">{{ funcionarios_ativos }}</td>
+    </tr>
+    <tr>
+        <td>Turmas ativas</td>
+        <td class="numero">{{ turmas_ativas }}</td>
+    </tr>
+</table>
+
+<h2>Atalhos</h2>
+
+<div class="atalhos">
+    <a class="atalho" href="/alunos">
+        <strong>Alunos</strong>
+        <span>Cadastro, turmas e pagamentos de cada aluno</span>
+    </a>
+    <a class="atalho" href="/funcionarios">
+        <strong>Funcionários</strong>
+        <span>Professores e equipe</span>
+    </a>
+    <a class="atalho" href="/turmas">
+        <strong>Turmas</strong>
+        <span>Horários, modalidades e alunos matriculados</span>
+    </a>
+    <a class="atalho" href="/financeiro">
+        <strong>Financeiro</strong>
+        <span>Situação dos pagamentos de cada mês</span>
+    </a>
+</div>
+{% endblock %}

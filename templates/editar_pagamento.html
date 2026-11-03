@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Editar pagamento</h1>
+
+<p>Aluno: {{ nome }}</p>
+
+{% if erro %}
+<p class="erro">{{ erro }}</p>
+{% endif %}
+
+<form action="/alunos/{{ id }}/pagamentos/{{ pagamento_id }}/editar" method="POST">
+
+    <label>Mês de referência:</label>
+    <input type="month" name="mes_referencia" value="{{ mes_referencia }}" required>
+
+    <label>Valor (R$):</label>
+    <input type="number" name="valor" step="0.01" min="0.01" value="{{ valor }}" required>
+
+    <label>Forma de pagamento:</label>
+    <select name="forma_pagamento" required>
+        <option value="">Selecione...</option>
+        {% for f in formas_pagamento %}
+        <option value="{{ f }}" {% if f == forma_pagamento %}selected{% endif %}>{{ f }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Salvar</button>
+    <a href="/alunos/{{ id }}/pagamentos">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Editar modalidade</h1>
+
+{% if erro %}
+<p class="erro">{{ erro }}</p>
+{% endif %}
+
+<form action="/modalidades/{{ id }}/editar" method="POST">
+    <label>Nome:</label>
+    <input type="text" name="nome" value="{{ nome }}" required>
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="/modalidades">Voltar</a>
+{% endblock %}

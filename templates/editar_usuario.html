@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Editar usuário</h1>
+
+{% if erro %}
+<p class="erro">{{ erro }}</p>
+{% endif %}
+
+<form action="/usuarios/{{ id }}/editar" method="POST">
+
+    <label>Nome:</label>
+    <input type="text" name="nome" value="{{ nome }}" required>
+
+    <label>Login:</label>
+    <input type="text" name="login" value="{{ login }}" required>
+
+    <label>Perfil:</label>
+    <select name="perfil">
+        <option value="recepcao" {% if perfil == "recepcao" %}selected{% endif %}>Recepção</option>
+        <option value="admin" {% if perfil == "admin" %}selected{% endif %}>Administrador</option>
+    </select>
+
+    <p>Para trocar a senha, preencha os dois campos abaixo. Para manter a senha atual, deixe em branco.</p>
+
+    <label>Nova senha:</label>
+    <input type="password" name="senha_nova">
+
+    <label>Confirmar nova senha:</label>
+    <input type="password" name="senha_confirmacao">
+
+    <button type="submit">Salvar</button>
+    <a href="/usuarios">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Alunos da turma</h1>
+
+<p>
+    Modalidade: {{ modalidade }}<br>
+    Professor: {{ professor }}<br>
+    Dia: {{ dia_semana }}<br>
+    Horário: {{ horario_inicio }} às {{ horario_fim }}<br>
+    Status: {% if status == 1 %}Ativa{% else %}Inativa{% endif %}
+</p>
+
+<h2>Alunos matriculados ({{ total }})</h2>
+
+{% if alunos %}
+<table>
+    <tr>
+        <th>Matrícula</th>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Ações</th>
+    </tr>
+    {% for aluno in alunos %}
+    <tr>
+        <td>{{ aluno[2] }}</td>
+        <td>{{ aluno[3] }}</td>
+        <td>{{ aluno[4] }}</td>
+        <td>
+            <form action="/turmas/{{ id }}/alunos/{{ aluno[0] }}/desmatricular" method="POST">
+                <button type="submit">Desmatricular</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>Nenhum aluno matriculado nesta turma.</p>
+{% endif %}
+
+<a href="/turmas">Voltar</a>
+{% endblock %}

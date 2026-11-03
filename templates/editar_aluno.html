@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Editar aluno</h1>
+<p>Matrícula: {{ matricula }}</p>
+
+{% if erro %}
+<p class="erro">{{ erro }}</p>
+{% endif %}
+
+<form action="/alunos/{{ id }}/editar" method="POST">
+
+    <div class="linha">
+        <div class="campo largo">
+            <label>Nome:</label>
+            <input type="text" name="nome" value="{{ nome if nome is not none else '' }}" required>
+        </div>
+        <div class="campo">
+            <label>CPF:</label>
+            <input type="text" name="cpf" inputmode="numeric" maxlength="14" value="{{ cpf if cpf is not none else '' }}">
+        </div>
+    </div>
+
+    <div class="linha">
+        <div class="campo">
+            <label>Telefone:</label>
+            <input type="text" name="telefone" value="{{ telefone if telefone is not none else '' }}" required>
+        </div>
+        <div class="campo">
+            <label>E-mail:</label>
+            <input type="email" name="email" value="{{ email if email is not none else '' }}">
+        </div>
+        <div class="campo">
+            <label>Data de nascimento:</label>
+            <input type="date" name="nascimento" value="{{ nascimento if nascimento is not none else '' }}">
+        </div>
+    </div>
+
+    <div class="linha">
+        <div class="campo largo">
+            <label>Rua:</label>
+            <input type="text" name="rua" value="{{ rua if rua is not none else '' }}">
+        </div>
+        <div class="campo estreito">
+            <label>Número:</label>
+            <input type="text" name="numero" value="{{ numero if numero is not none else '' }}">
+        </div>
+        <div class="campo">
+            <label>Complemento:</label>
+            <input type="text" name="complemento" value="{{ complemento if complemento is not none else '' }}">
+        </div>
+    </div>
+
+    <div class="linha">
+        <div class="campo">
+            <label>Bairro:</label>
+            <input type="text" name="bairro" value="{{ bairro if bairro is not none else '' }}">
+        </div>
+        <div class="campo largo">
+            <label>Cidade:</label>
+            <input type="text" name="cidade" value="{{ cidade if cidade is not none else '' }}">
+        </div>
+        <div class="campo estreito">
+            <label>UF:</label>
+            <input type="text" name="uf" maxlength="2" value="{{ uf if uf is not none else '' }}">
+        </div>
+    </div>
+
+    <div class="linha">
+        <div class="campo">
+            <label>CEP:</label>
+            <input type="text" name="cep" value="{{ cep if cep is not none else '' }}">
+        </div>
+        <div class="campo">
+            <label>Mensalidade (R$):</label>
+            <input type="number" name="mensalidade" step="0.01" min="0" value="{{ '%.2f'|format(mensalidade|float) if mensalidade not in (none, '') else '' }}" required>
+        </div>
+        <div class="campo">
+            <label>Dia de vencimento (1 a 31):</label>
+            <input type="number" name="dia_vencimento" min="1" max="31" value="{{ dia_vencimento if dia_vencimento is not none else '' }}" required>
+        </div>
+    </div>
+
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="/alunos">Voltar</a>
+{% endblock %}

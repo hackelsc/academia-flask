@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h1>Turmas ({{ total }})</h1>
+
+<a href="/modalidades">Gerenciar modalidades</a>
+<a href="/turmas/novo">Nova turma</a>
+
+<form action="/turmas" method="GET">
+
+    <select name="modalidade_id">
+        <option value="">Todas as modalidades</option>
+        {% for m in modalidades %}
+        <option value="{{ m[0] }}" {% if m[0]|string == modalidade_id %}selected{% endif %}>{{ m[1] }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="funcionario_id">
+        <option value="">Todos os professores</option>
+        {% for p in professores %}
+        <option value="{{ p[0] }}" {% if p[0]|string == funcionario_id %}selected{% endif %}>{{ p[1] }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="dia_semana">
+        <option value="">Todos os dias</option>
+        {% for d in dias_semana %}
+        <option value="{{ d }}" {% if d == dia_semana %}selected{% endif %}>{{ d }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="status">
+        <option value="" {% if status == "" %}selected{% endif %}>Todas</option>
+        <option value="1" {% if status == "1" %}selected{% endif %}>Ativas</option>
+        <option value="0" {% if status == "0" %}selected{% endif %}>Inativas</option>
+    </select>
+
+    <button type="submit">Filtrar</button>
+
+    {% if modalidade_id or funcionario_id or dia_semana or status != "1" %}
+    <a href="/turmas">Limpar filtros</a>
+    {% endif %}
+
+</form>
+
+{% if turmas %}
+<table>
+    <tr>
+        <th>Modalidade</th>
+        <th>Professor</th>
+        <th>Dia</th>
+        <th>Início</th>
+        <th>Fim</th>
+        <th>Status</th>
+        <th>Ações</th>
+    </tr>
+    {% for turma in turmas %}
+    <tr>
+        <td>{{ turma[1] }}</td>
+        <td>{{ turma[2] or "Sem professor fixo" }}</td>
+        <td>{{ turma[3] }}</td>
+        <td>{{ turma[4] }}</td>
+        <td>{{ turma[5] }}</td>
+        <td>{% if turma[6] == 1 %}<span class="etiqueta ativo">Ativa</span>{% else %}<span class="etiqueta inativo">Inativa</span>{% endif %}</td>
+        <td>
+            <a href="/turmas/{{ turma[0] }}/editar">Editar</a>
+            <a href="/turmas/{{ turma[0] }}/excluir">Excluir</a>
+            <a href="/turmas/{{ turma[0] }}/alunos">Alunos</a>
+            {% if turma[6] == 1 %}
+            <form action="/turmas/{{ turma[0] }}/inativar" method="POST">
+                <button type="submit">Inativar</button>
+            </form>
+            {% else %}
+            <form action="/turmas/{{ turma[0] }}/reativar" method="POST">
+                <button type="submit">Reativar</button>
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>Nenhuma turma encontrada.</p>
+{% endif %}
+{% endblock %}

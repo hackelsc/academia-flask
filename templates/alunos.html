@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+    <h1>Alunos ({{ total }})</h1>
+
+    <a href="/alunos/novo">Novo aluno</a>
+
+    <form action="/alunos" method="GET">
+        <input type="text" name="busca" value="{{ busca }}" placeholder="Buscar por nome, matrícula, CPF, telefone...">
+        <select name="status">
+            <option value="" {% if status == "" %}selected{% endif %}>Todos</option>
+            <option value="1" {% if status == "1" %}selected{% endif %}>Ativos</option>
+            <option value="0" {% if status == "0" %}selected{% endif %}>Inativos</option>
+        </select>
+        <button type="submit">Buscar</button>
+        {% if busca or status != "1" %}
+        <a href="/alunos">Limpar filtros</a>
+        {% endif %}
+    </form>
+
+    {% if alunos %}
+        <table>
+            <tr>
+                <th>Matrícula</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>Mensalidade</th>
+                <th>Vencimento</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+            {% for aluno in alunos %}
+            <tr>
+                <td>{{ aluno[1] }}</td>
+                <td>{{ aluno[2] }}</td>
+                <td>{{ aluno[4] }}</td>
+                <td>{{ aluno[5] }}</td>
+                <td>R$ {{ "%.2f"|format(aluno[14]) }}</td>
+                <td>dia {{ aluno[15] }}</td>
+                <td>
+                    {% if aluno[17] == 1 %}
+                        <span class="etiqueta ativo">Ativo</span>
+                    {% else %}
+                        <span class="etiqueta inativo">Inativo</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/alunos/{{ aluno[0] }}/editar">Editar</a>
+                    <a href="/alunos/{{ aluno[0] }}/turmas">Turmas</a>
+                    <a href="/alunos/{{ aluno[0] }}/pagamentos">Pagamentos</a>
+                                        {% if aluno[17] == 1 %}
+                    <form action="/alunos/{{ aluno[0] }}/inativar" method="POST">
+                        <button type="submit">Inativar</button>
+                    </form>
+                    {% else %}
+                    <form action="/alunos/{{ aluno[0] }}/reativar" method="POST">
+                        <button type="submit">Reativar</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+    {% if busca or status != "1" %}
+        <p>Nenhum aluno encontrado com esses filtros</p>
+    {% else %}
+        <p>Nenhum aluno cadastrado</p>
+    {% endif %}
+    {% endif %}
+{% endblock %}
