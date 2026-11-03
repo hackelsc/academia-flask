@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash
 
 load_dotenv()
+senha_admin = os.environ["ADMIN_SENHA"]
 conexao = psycopg.connect(os.environ["DATABASE_URL"])
 cursor = conexao.cursor()
 
@@ -104,7 +105,7 @@ cursor.execute("""
         perfil TEXT
     )
 """)
-senha_hash_admin = generate_password_hash("trocar123")
+senha_hash_admin = generate_password_hash(senha_admin)
 cursor.execute(
     "INSERT INTO usuarios (nome, login, senha_hash, perfil) VALUES (%s, %s, %s, %s) ON CONFLICT (login) DO NOTHING",
     ("Administrador", "admin@academia.com", senha_hash_admin, "admin")
